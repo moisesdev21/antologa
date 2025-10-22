@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset global de scroll y box-sizing */
+html {
+  scroll-behavior: smooth; /* transición suave */
+  overflow-y: scroll;      /* siempre reserva espacio para scrollbar */
+  height: 100%;
+}
+
+body {
+  @apply bg-gray-50 text-gray-800 min-h-screen font-sans;
+  margin: 0;
+  padding: 0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box; /* evita saltos por padding/margin */
+}
+
+/* Imágenes, videos o canvas no rompen layout */
+img, video, canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

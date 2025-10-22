@@ -1,0 +1,558 @@
+// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Customers {
+  customer_id    Int      @id @default(autoincrement())
+  last_name      String
+  name           String
+  nametag        String   @unique
+  email          String   @unique
+  password       String
+  phone_number   String?
+  created_at     DateTime @default(now()) @map("created_at")
+
+  // Relaciones
+  payments       Payments[]
+  itineraries    Itinerary[]
+  reviews        Reviews[]
+  experience_reports ExperienceReports[]
+  user_analytics UserAnalytics[]
+  search_logs    SearchLogs[]
+
+  device_logs    DeviceLogs[]
+
+  @@map("customers")
+}
+
+model BusinessUsers {
+  business_user_id Int      @id @default(autoincrement())
+  last_name        String
+  name             String
+  nametag          String   @unique
+  email            String   @unique
+  password         String
+  phone_number     String?
+  created_at       DateTime @default(now()) @map("created_at")
+
+  // Relaciones
+  businesses Businesses[]
+
+  @@map("businessusers")
+}
+
+model Admins {
+  admin_id      Int      @id @default(autoincrement())
+  last_name     String
+  name          String
+  nametag       String   @unique
+  email         String   @unique
+  password      String
+  phone_number  String?
+  created_at    DateTime @default(now()) @map("created_at")
+
+  // Relaciones
+  articles   Articles[]
+  admin_logs AdminLogs[]
+  user_roles UserRoles[]
+
+  @@map("admins")
+}
+
+model Businesses {
+  business_id          Int                     @id @default(autoincrement())
+  user_id              Int
+  business_name        String
+  business_address     String?
+  business_website     String?
+  business_description String?
+  status               BusinessStatus          @default(pending)
+  subscription_status  SubscriptionStatus      @default(trial)
+  created_at           DateTime                @default(now()) @map("created_at")
+
+  // Relaciones
+  business_user        BusinessUsers           @relation(fields: [user_id], references: [business_user_id])
+  destinations         Destinations[]
+  experiences          Experiences[]
+  payments             Payments[]
+  itineraries          Itinerary[]
+  reviews              Reviews[]
+  business_subscriptions BusinessSubscriptions[]
+  business_audits      BusinessAudits[]
+  payment_reconciliations PaymentReconciliations[]
+
+  @@map("businesses")
+}
+
+model Categories {
+  category_id  Int      @id @default(autoincrement())
+  name         String
+  description  String?
+  created_at   DateTime @default(now()) @map("created_at")
+
+  // Relaciones
+  destinations Destinations[]
+  experiences  Experiences[]
+
+  @@map("categories")
+}
+
+model Location {
+  location_id Int      @id @default(autoincrement())
+  name        String
+  address     String?
+  city        String?
+  country     String?
+  latitude    Float?
+  longitude   Float?
+  created_at  DateTime @default(now()) @map("created_at")
+
+  // Relaciones
+  destinations Destinations[]
+  experiences  Experiences[]
+  images       Images[]
+
+  @@map("location")
+}
+
+model Destinations {
+  destination_id Int               @id @default(autoincrement())
+  name           String
+  location_string String?           @map("location") // Cambiado de location a location_string
+  location_id    Int?
+  description    String?
+  image_url      String?
+  category_id    Int?
+  business_id    Int?
+  type           DestinationType   @default(Atraccion)
+  price          Float?
+  commission     Float             @default(0.00)
+  verified       Boolean           @default(false)
+  created_at     DateTime          @default(now()) @map("created_at")
+
+  // Relaciones
+  location       Location?         @relation(fields: [location_id], references: [location_id])
+  category       Categories?       @relation(fields: [category_id], references: [category_id])
+  business       Businesses?       @relation(fields: [business_id], references: [business_id])
+  itineraries    Itinerary[]
+  reviews        Reviews[]
+  images         Images[]
+
+  @@map("destinations")
+}
+
+model Experiences {
+  experience_id      Int                   @id @default(autoincrement())
+  name               String
+  description        String?
+  price              Float
+  location_string    String?               @map("location") // Cambiado de location a location_string
+  location_id        Int?
+  date               DateTime
+  category_id        Int?
+  business_id        Int?
+  image_url          String?
+  moderation_status  ModerationStatus      @default(Pendiente)
+  created_at         DateTime              @default(now()) @map("created_at")
+
+  // Relaciones
+  location           Location?             @relation(fields: [location_id], references: [location_id])
+  category           Categories?           @relation(fields: [category_id], references: [category_id])
+  business           Businesses?           @relation(fields: [business_id], references: [business_id])
+  itineraries        Itinerary[]
+  reviews            Reviews[]
+  images             Images[]
+  experience_reports ExperienceReports[]
+
+  @@map("experiences")
+}
+
+model Payments {
+  payment_id    Int              @id @default(autoincrement())
+  user_id       Int
+  business_id   Int?
+  amount        Float
+  payment_date  DateTime
+  status        PaymentStatus    @default(Pending)
+  created_at    DateTime         @default(now()) @map("created_at")
+
+  // Relaciones
+  customer      Customers        @relation(fields: [user_id], references: [customer_id])
+  business      Businesses?      @relation(fields: [business_id], references: [business_id])
+  itineraries   Itinerary[]
+  payment_reconciliations PaymentReconciliations[]
+
+  @@map("payments")
+}
+
+model Itinerary {
+  itinerary_id   Int             @id @default(autoincrement())
+  user_id        Int
+  destination_id Int?
+  experience_id  Int?
+  business_id    Int?
+  booking_date   DateTime
+  status         BookingStatus   @default(Pending)
+  payment_id     Int?
+  created_at     DateTime        @default(now()) @map("created_at")
+
+  // Relaciones
+  customer       Customers       @relation(fields: [user_id], references: [customer_id])
+  destination    Destinations?   @relation(fields: [destination_id], references: [destination_id])
+  experience     Experiences?    @relation(fields: [experience_id], references: [experience_id])
+  business       Businesses?     @relation(fields: [business_id], references: [business_id])
+  payment        Payments?       @relation(fields: [payment_id], references: [payment_id])
+
+  @@map("itinerary")
+}
+
+model Reviews {
+  review_id      Int      @id @default(autoincrement())
+  user_id        Int
+  destination_id Int?
+  experience_id  Int?
+  business_id    Int?
+  rating         Int
+  comment        String?
+  created_at     DateTime @default(now()) @map("created_at")
+
+  // Relaciones
+  customer       Customers    @relation(fields: [user_id], references: [customer_id])
+  destination    Destinations? @relation(fields: [destination_id], references: [destination_id])
+  experience     Experiences?  @relation(fields: [experience_id], references: [experience_id])
+  business       Businesses?   @relation(fields: [business_id], references: [business_id])
+
+  @@map("reviews")
+}
+
+model Articles {
+  article_id    Int             @id @default(autoincrement())
+  title         String
+  content       String
+  author_id     Int
+  category      String?
+  tags          String?
+  publish_date  DateTime        @default(now()) @map("publish_date")
+  status        ArticleStatus   @default(draft)
+  created_at    DateTime        @default(now()) @map("created_at")
+  updated_at    DateTime        @default(now()) @updatedAt @map("updated_at")
+
+  // Relaciones
+  admin         Admins          @relation(fields: [author_id], references: [admin_id])
+
+  @@map("articles")
+}
+
+model Images {
+  image_id       Int           @id @default(autoincrement())
+  location_id    Int?
+  destination_id Int?
+  experience_id  Int?
+  url            String
+  description    String?
+  created_at     DateTime      @default(now()) @map("created_at")
+
+  // Relaciones
+  location       Location?     @relation(fields: [location_id], references: [location_id])
+  destination    Destinations? @relation(fields: [destination_id], references: [destination_id])
+  experience     Experiences?  @relation(fields: [experience_id], references: [experience_id])
+
+  @@map("images")
+}
+
+model Roles {
+  role_id     Int      @id @default(autoincrement())
+  name        String
+  description String?
+
+  // Relaciones
+  user_roles  UserRoles[]
+  permissions Permissions[]
+
+  @@map("roles")
+}
+
+model UserRoles {
+  user_role_id Int      @id @default(autoincrement())
+  user_id      Int
+  role_id      Int
+  assigned_at  DateTime @default(now()) @map("assigned_at")
+
+  // Relaciones
+  admin        Admins   @relation(fields: [user_id], references: [admin_id])
+  role         Roles    @relation(fields: [role_id], references: [role_id])
+
+  @@map("userroles")
+}
+
+model Permissions {
+  permission_id Int     @id @default(autoincrement())
+  role_id       Int
+  module        String
+  can_view      Boolean @default(true)
+  can_edit      Boolean @default(false)
+  can_delete    Boolean @default(false)
+
+  // Relaciones
+  role          Roles   @relation(fields: [role_id], references: [role_id])
+
+  @@map("permissions")
+}
+
+model AdminLogs {
+  log_id      Int      @id @default(autoincrement())
+  admin_id    Int
+  action      String
+  target_type String?
+  target_id   Int?
+  created_at  DateTime @default(now()) @map("created_at")
+
+  // Relaciones
+  admin       Admins   @relation(fields: [admin_id], references: [admin_id])
+
+  @@map("adminlogs")
+}
+
+model SubscriptionPlans {
+  plan_id        Int      @id @default(autoincrement())
+  name           String
+  price          Float
+  duration_days  Int
+  description    String?
+
+  // Relaciones
+  business_subscriptions BusinessSubscriptions[]
+
+  @@map("subscriptionplans")
+}
+
+model BusinessSubscriptions {
+  subscription_id     Int                   @id @default(autoincrement())
+  business_id         Int
+  plan_id             Int
+  status              SubscriptionPlanStatus @default(Prueba)
+  start_date          DateTime
+  end_date            DateTime
+  next_billing_date   DateTime?
+
+  // Relaciones
+  business            Businesses           @relation(fields: [business_id], references: [business_id])
+  plan                SubscriptionPlans    @relation(fields: [plan_id], references: [plan_id])
+  invoices            Invoices[]
+
+  @@map("businesssubscriptions")
+}
+
+model Invoices {
+  invoice_id      Int               @id @default(autoincrement())
+  subscription_id Int
+  amount          Float
+  status          InvoiceStatus     @default(Pendiente)
+  issued_date     DateTime          @default(now()) @map("issued_date")
+  due_date        DateTime?
+
+  // Relaciones
+  subscription    BusinessSubscriptions @relation(fields: [subscription_id], references: [subscription_id])
+
+  @@map("invoices")
+}
+
+model BusinessAudits {
+  audit_id    Int               @id @default(autoincrement())
+  business_id Int
+  reason      String?
+  status      AuditStatus       @default(Pendiente)
+  created_at  DateTime          @default(now()) @map("created_at")
+
+  // Relaciones
+  business    Businesses        @relation(fields: [business_id], references: [business_id])
+
+  @@map("businessaudits")
+}
+
+model ExperienceReports {
+  report_id     Int             @id @default(autoincrement())
+  experience_id Int
+  user_id       Int
+  reason        String?
+  status        ReportStatus    @default(Pendiente)
+  created_at    DateTime        @default(now()) @map("created_at")
+
+  // Relaciones
+  experience    Experiences     @relation(fields: [experience_id], references: [experience_id])
+  customer      Customers       @relation(fields: [user_id], references: [customer_id])
+
+  @@map("experiencereports")
+}
+
+model PaymentReconciliations {
+  reconciliation_id Int                   @id @default(autoincrement())
+  payment_id        Int
+  business_id       Int
+  status            ReconciliationStatus @default(Pendiente)
+  reconciled_at     DateTime?
+
+  // Relaciones
+  payment           Payments              @relation(fields: [payment_id], references: [payment_id])
+  business          Businesses            @relation(fields: [business_id], references: [business_id])
+
+  @@map("paymentreconciliations")
+}
+
+model TaxReports {
+  report_id        Int      @id @default(autoincrement())
+  period           String?
+  total_gmv        Float?
+  total_commission Float?
+  total_taxes      Float?
+  created_at       DateTime @default(now()) @map("created_at")
+
+  @@map("taxreports")
+}
+
+model UserAnalytics {
+  analytics_id Int      @id @default(autoincrement())
+  user_id      Int?
+  country      String?
+  city         String?
+  age          Int?
+  interests    String?
+  activity_time DateTime @default(now()) @map("activity_time")
+
+  // Relaciones
+  customer     Customers? @relation(fields: [user_id], references: [customer_id])
+
+  @@map("useranalytics")
+}
+
+model SearchLogs {
+  search_id      Int      @id @default(autoincrement())
+  user_id        Int?
+  search_term    String?
+  results_found  Int      @default(0)
+  created_at     DateTime @default(now()) @map("created_at")
+
+  // Relaciones
+  customer       Customers? @relation(fields: [user_id], references: [customer_id])
+
+  @@map("searchlogs")
+}
+
+model ErrorLogs {
+  error_id   Int          @id @default(autoincrement())
+  module     String?
+  message    String?
+  severity   ErrorSeverity @default(Info)
+  created_at DateTime     @default(now()) @map("created_at")
+
+  @@map("errorlogs")
+}
+
+
+model DeviceLogs {
+  device_log_id    Int      @id @default(autoincrement())
+  user_id          Int?
+  ip_address       String
+  user_agent       String   @db.VarChar(500)
+  device_type      String   // mobile, desktop, tablet, bot
+  browser          String
+  os               String
+  is_bot           Boolean  @default(false)
+  country          String?
+  city             String?
+  language         String?
+  environment      String?  // development, production
+  created_at       DateTime @default(now())
+
+  customer         Customers? @relation(fields: [user_id], references: [customer_id])
+
+  @@map("devicelogs")
+  @@index([created_at])
+  @@index([device_type])
+  @@index([environment])
+}
+
+// ENUMS
+enum BusinessStatus {
+  pending
+  active
+  suspended
+}
+
+enum SubscriptionStatus {
+  trial
+  active
+  expired
+}
+
+enum DestinationType {
+  Hospedaje
+  Atraccion
+}
+
+enum ModerationStatus {
+  Pendiente
+  Aprobado
+  Rechazado
+  Reportado
+}
+
+enum PaymentStatus {
+  Pending
+  Completed
+  Failed
+  Confirmed
+}
+
+enum BookingStatus {
+  Pending
+  Confirmed
+  Cancelled
+}
+
+enum ArticleStatus {
+  draft
+  published
+}
+
+enum SubscriptionPlanStatus {
+  Activa
+  Vencida
+  Cancelada
+  Prueba
+}
+
+enum InvoiceStatus {
+  Pagada
+  Pendiente
+  Fallida
+}
+
+enum AuditStatus {
+  Pendiente
+  Aprobado
+  Rechazado
+}
+
+enum ReportStatus {
+  Pendiente
+  Revisado
+}
+
+enum ReconciliationStatus {
+  Pendiente
+  Pagado
+  Error
+}
+
+enum ErrorSeverity {
+  Info
+  Warning
+  Critical
+}
