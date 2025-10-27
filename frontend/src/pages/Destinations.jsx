@@ -122,20 +122,22 @@ const Destinations = () => {
   };
 
   return (
-    <div className="relative bg-white min-h-screen">
+    <div className="relative bg-white dark:bg-dark-bg min-h-screen transition-colors duration-300">
       {/* CONTENIDO PRINCIPAL - Sin navbar duplicado */}
-      <div className="pt-16"> {/* Reducido el padding-top ya que el navbar es global */}
+      <div className="pt--16"> {/* Reducido el padding-top ya que el navbar es global */}
         {/* MAIN */}
-     <main className="flex flex-col items-center w-full">
-  <div className="pt-12 pb-24 flex flex-col items-center gap-20 w-full max-w-[1200px] mx-auto">
-    {/* Title */}
-    <div className="flex flex-col items-center gap-10 text-center">
-      <h1 className="text-[#078282] font-montserrat text-[48px] font-bold leading-[56px] tracking-[-0.96px] w-[544px]">
-        Destinations
-      </h1>
-      <p className="text-[#777E90] font-nunito text-[16px] font-normal leading-[24px] max-w-[544px]">
-        Explore the beauty of Panama's provinces and plan your next adventure.
-      </p>
+        <main className="flex flex-col items-center w-full">
+          {/* Destinations Section - Diseño original con Explore y Trips Available */}
+          <div className="py-24 flex flex-col items-center gap-20 w-full max-w-[1200px] mx-auto">
+            {/* Title */}
+            <div className="flex flex-col items-center gap-10 text-center">
+              <h1 className="text-[#078282] text-center font-montserrat text-[48px] font-bold leading-[56px] tracking-[-0.96px] w-[544px]">
+                Destinations
+              </h1>
+              
+              <p className="text-[#777E90] dark:text-gray-300 text-center font-nunito text-[16px] font-normal leading-[24px] max-w-[544px]">
+                Explore the beauty of Panama's provinces and plan your next adventure.
+              </p>
 
               {/* Sub Navigation - Botones de provincias */}
               <div className="w-full flex justify-center flex-wrap gap-2">
@@ -148,7 +150,7 @@ const Destinations = () => {
                       font-nunito text-[16px] leading-[16px]
                       ${activeProvince === province
                         ? 'bg-[#078282] text-[#FCFCFD] font-black'
-                        : 'bg-transparent text-[#777E90] font-normal hover:bg-gray-100'
+                        : 'bg-transparent text-[#777E90] dark:text-gray-300 font-normal hover:bg-gray-100 dark:hover:bg-dark-surface'
                       }
                     `}
                   >
@@ -205,7 +207,7 @@ const Destinations = () => {
           </div>
 
           {/* Recommend Section - Diseño original con Tours y Distancia */}
-          <div className="flex w-full max-w-[1200px] py-[100px] flex-col justify-center items-center gap-2.5 bg-[#FCFCFD] mx-auto">
+          <div className="flex w-full max-w-[1200px] py-[100px] flex-col justify-center items-center gap-2.5 bg-[#FCFCFD] dark:bg-dark-surface mx-auto transition-colors duration-300">
             {/* Container */}
             <div className="flex flex-col items-start gap-16 w-full">
               
@@ -219,7 +221,7 @@ const Destinations = () => {
                     Recommended pickup locations
                   </h2>
                   <p 
-                    className="text-[#777E90] font-poppins text-[20px] font-normal leading-[32px] tracking-[-0.2px] w-[544px]"
+                    className="text-[#777E90] dark:text-gray-300 font-poppins text-[20px] font-normal leading-[32px] tracking-[-0.2px] w-[544px]"
                   >
                     A lot of amazing experiences
                   </p>
@@ -230,7 +232,7 @@ const Destinations = () => {
                   {/* Left Arrow */}
                   <button 
                     onClick={prevRecommendation}
-                    className="flex p-2 items-center justify-center w-10 h-10 rounded-[40px] border-2 border-[#E6E8EC] bg-white hover:bg-gray-50 transition-colors"
+                    className="flex p-2 items-center justify-center w-10 h-10 rounded-[40px] border-2 border-[#E6E8EC] dark:border-gray-600 bg-white dark:bg-dark-bg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                       <path fillRule="evenodd" clipRule="evenodd" d="M9.90906 7.26521C9.50324 6.8906 8.87058 6.9159 8.49597 7.32172L5.2652 10.8217C4.9116 11.2047 4.9116 11.7952 5.26519 12.1782L8.49597 15.6783C8.87057 16.0841 9.50323 16.1094 9.90905 15.7348C10.3149 15.3602 10.3402 14.7276 9.96558 14.3217L8.28397 12.5L18 12.5C18.5523 12.5 19 12.0523 19 11.5C19 10.9477 18.5523 10.5 18 10.5L8.284 10.5L9.96557 8.67829C10.3402 8.27247 10.3149 7.63981 9.90906 7.26521Z" fill="#078282"/>
@@ -240,7 +242,7 @@ const Destinations = () => {
                   {/* Right Arrow - Flecha blanca */}
                   <button 
                     onClick={nextRecommendation}
-                    className="flex p-2 items-center justify-center w-10 h-10 rounded-[40px] border-2 border-[#E6E8EC] bg-white hover:bg-gray-50 transition-colors"
+                    className="flex p-2 items-center justify-center w-10 h-10 rounded-[40px] border-2 border-[#E6E8EC] dark:border-gray-600 bg-white dark:bg-dark-bg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                       <path fillRule="evenodd" clipRule="evenodd" d="M14.0909 7.26521C14.4968 6.8906 15.1294 6.9159 15.504 7.32172L18.7348 10.8217C19.0884 11.2047 19.0884 11.7952 18.7348 12.1782L15.504 15.6783C15.1294 16.0841 14.4968 16.1094 14.091 15.7348C13.6851 15.3602 13.6598 14.7276 14.0344 14.3217L15.716 12.5L6 12.5C5.44772 12.5 5 12.0523 5 11.5C5 10.9477 5.44772 10.5 6 10.5L15.716 10.5L14.0344 8.67829C13.6598 8.27247 13.6851 7.63981 14.0909 7.26521Z" fill="#078282"/>
@@ -298,19 +300,19 @@ const Destinations = () => {
           </div>
 
           {/* Newsletter Section - Imagen a la derecha */}
-          <div className="flex w-full max-w-[1200px] h-[702px] bg-white mx-auto">
+          <div className="flex w-full max-w-[1200px] h-[702px] bg-white dark:bg-dark-bg mx-auto transition-colors duration-300">
             <div className="flex w-full h-full">
               {/* Content Section - Ahora a la izquierda */}
               <div className="flex w-[548px] flex-col justify-center items-start gap-8 px-8">
                 {/* Headline */}
                 <div className="flex flex-col items-start gap-4 w-full">
-                  <span className="text-[#777E90] font-poppins text-[12px] font-bold leading-[12px] uppercase">
+                  <span className="text-[#777E90] dark:text-gray-300 font-poppins text-[12px] font-bold leading-[12px] uppercase">
                     Take A Tour
                   </span>
                   <h2 className="text-[#078282] font-dm-sans text-[48px] font-bold leading-[56px] tracking-[-0.96px] w-[394px]">
                     Join our newsletter
                   </h2>
-                  <p className="text-[#777E90] font-poppins text-[16px] font-normal leading-[24px] w-full">
+                  <p className="text-[#777E90] dark:text-gray-300 font-poppins text-[16px] font-normal leading-[24px] w-full">
                     Discover the hidden gems of Panama and get exclusive travel tips and offers directly to your inbox.
                   </p>
                 </div>
@@ -323,7 +325,7 @@ const Destinations = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="flex-1 text-[#777E90] font-poppins text-[14px] font-normal leading-[24px] bg-transparent outline-none placeholder:text-[#777E90]"
+                      className="flex-1 text-[#777E90] dark:text-gray-300 font-poppins text-[14px] font-normal leading-[24px] bg-transparent outline-none placeholder:text-[#777E90] dark:placeholder:text-gray-400"
                       required
                     />
                     <button
@@ -339,8 +341,8 @@ const Destinations = () => {
               </div>
 
               {/* Image Section - Ahora a la derecha */}
-              <div className="w-[800px] h-[702px] bg-white flex items-center justify-center">
-                <div className="w-[739px] h-[613px] bg-gray-200 rounded-2xl overflow-hidden">
+              <div className="w-[800px] h-[702px] bg-white dark:bg-dark-bg flex items-center justify-center transition-colors duration-300">
+                <div className="w-[739px] h-[613px] bg-gray-200 dark:bg-gray-700 rounded-2xl overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1513415277900-a62401e19be4?auto=format&fit=crop&w=800&h=613"
                     alt="Panama Adventure"

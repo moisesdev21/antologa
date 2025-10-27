@@ -157,10 +157,10 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow">
-      <div className="px-6 py-4 border-b border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900">Gestión de Zonas Geográficas</h3>
-        <p className="text-sm text-gray-600">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow transition-colors duration-300">
+      <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Gestión de Zonas Geográficas</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           Administra las "Zonas de Tesoros Escondidos" y regiones turísticas
         </p>
       </div>
@@ -168,64 +168,64 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
       <div className="p-6">
         {/* Estadísticas */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="bg-blue-50 p-4 rounded-lg text-center">
-            <div className="text-2xl font-bold text-blue-600">{regionStats.totalRegions}</div>
-            <div className="text-sm text-blue-700">Total de Zonas</div>
+          <div className="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg text-center transition-colors duration-300">
+            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{regionStats.totalRegions}</div>
+            <div className="text-sm text-blue-700 dark:text-blue-300">Total de Zonas</div>
           </div>
-          <div className="bg-green-50 p-4 rounded-lg text-center">
-            <div className="text-2xl font-bold text-green-600">{regionStats.activeRegions}</div>
-            <div className="text-sm text-green-700">Zonas Activas</div>
+          <div className="bg-green-50 dark:bg-green-900 p-4 rounded-lg text-center transition-colors duration-300">
+            <div className="text-2xl font-bold text-green-600 dark:text-green-400">{regionStats.activeRegions}</div>
+            <div className="text-sm text-green-700 dark:text-green-300">Zonas Activas</div>
           </div>
-          <div className="bg-purple-50 p-4 rounded-lg text-center">
-            <div className="text-2xl font-bold text-purple-600">{regionStats.totalDestinations}</div>
-            <div className="text-sm text-purple-700">Hospedajes en Zonas</div>
+          <div className="bg-purple-50 dark:bg-purple-900 p-4 rounded-lg text-center transition-colors duration-300">
+            <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">{regionStats.totalDestinations}</div>
+            <div className="text-sm text-purple-700 dark:text-purple-300">Hospedajes en Zonas</div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           {/* Formulario de Nueva Zona */}
           <div className="space-y-6">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h4 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 transition-colors duration-300">
+              <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 Crear Nueva Zona
               </h4>
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Nombre de la Zona *
                   </label>
                   <input
                     type="text"
                     value={newRegion.name}
                     onChange={(e) => setNewRegion(prev => ({ ...prev, name: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:text-white transition-colors duration-200"
                     placeholder="Ej: Zona Cafetera Oculta"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Descripción *
                   </label>
                   <textarea
                     value={newRegion.description}
                     onChange={(e) => setNewRegion(prev => ({ ...prev, description: e.target.value }))}
                     rows="3"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:text-white transition-colors duration-200"
                     placeholder="Describe las características únicas de esta zona..."
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Tipo de Zona
                     </label>
                     <select
                       value={newRegion.type}
                       onChange={(e) => setNewRegion(prev => ({ ...prev, type: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:text-white transition-colors duration-200"
                     >
                       <option value="hidden_treasure">Tesoro Escondido</option>
                       <option value="cultural">Cultural</option>
@@ -235,14 +235,14 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Radio (km)
                     </label>
                     <input
                       type="number"
                       value={newRegion.radius}
                       onChange={(e) => setNewRegion(prev => ({ ...prev, radius: parseInt(e.target.value) }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:text-white transition-colors duration-200"
                       min="1"
                       max="100"
                     />
@@ -251,13 +251,13 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
 
                 {/* Coordenadas de la zona */}
                 <div className="space-y-3">
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Coordenadas del Área
                   </label>
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1">Noreste - Lat</label>
+                      <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Noreste - Lat</label>
                       <input
                         type="number"
                         step="any"
@@ -269,12 +269,12 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
                             ne: { ...prev.coordinates.ne, lat: e.target.value }
                           }
                         }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-600 dark:text-white transition-colors duration-200"
                         placeholder="Latitud"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1">Noreste - Lng</label>
+                      <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Noreste - Lng</label>
                       <input
                         type="number"
                         step="any"
@@ -286,7 +286,7 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
                             ne: { ...prev.coordinates.ne, lng: e.target.value }
                           }
                         }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-600 dark:text-white transition-colors duration-200"
                         placeholder="Longitud"
                       />
                     </div>
@@ -294,7 +294,7 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1">Suroeste - Lat</label>
+                      <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Suroeste - Lat</label>
                       <input
                         type="number"
                         step="any"
@@ -306,12 +306,12 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
                             sw: { ...prev.coordinates.sw, lat: e.target.value }
                           }
                         }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-600 dark:text-white transition-colors duration-200"
                         placeholder="Latitud"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1">Suroeste - Lng</label>
+                      <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Suroeste - Lng</label>
                       <input
                         type="number"
                         step="any"
@@ -323,7 +323,7 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
                             sw: { ...prev.coordinates.sw, lng: e.target.value }
                           }
                         }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-600 dark:text-white transition-colors duration-200"
                         placeholder="Longitud"
                       />
                     </div>
@@ -333,7 +333,7 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
                 <button
                   onClick={handleCreateRegion}
                   disabled={isLoading || !newRegion.name || !newRegion.description}
-                  className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 disabled:bg-blue-300 dark:disabled:bg-blue-800 disabled:cursor-not-allowed transition-colors duration-200"
                 >
                   {isLoading ? 'Creando Zona...' : 'Crear Nueva Zona'}
                 </button>
@@ -343,38 +343,38 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
 
           {/* Lista de Zonas Existentes */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gray-900">
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
               Zonas Existentes ({regions.length})
             </h4>
 
             {isLoading ? (
               <div className="text-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
-                <p className="text-gray-500 mt-2">Cargando zonas...</p>
+                <p className="text-gray-500 dark:text-gray-400 mt-2">Cargando zonas...</p>
               </div>
             ) : regions.length === 0 ? (
-              <div className="text-center py-8 bg-gray-50 rounded-lg">
-                <p className="text-gray-500">No hay zonas creadas aún</p>
+              <div className="text-center py-8 bg-gray-50 dark:bg-gray-700 rounded-lg transition-colors duration-300">
+                <p className="text-gray-500 dark:text-gray-400">No hay zonas creadas aún</p>
               </div>
             ) : (
               <div className="space-y-3 max-h-96 overflow-y-auto">
                 {regions.map(region => (
-                  <div key={region.id} className="bg-white border border-gray-200 rounded-lg p-4">
+                  <div key={region.id} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4 transition-colors duration-300">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <h5 className="font-semibold text-gray-900">{region.name}</h5>
-                        <p className="text-sm text-gray-600">{region.description}</p>
+                        <h5 className="font-semibold text-gray-900 dark:text-white">{region.name}</h5>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{region.description}</p>
                       </div>
                       <span className={`px-2 py-1 rounded-full text-xs ${
                         region.status === 'active' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-gray-100 text-gray-800'
+                          ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' 
+                          : 'bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200'
                       }`}>
                         {region.status === 'active' ? 'Activa' : 'Inactiva'}
                       </span>
                     </div>
                     
-                    <div className="flex justify-between items-center text-sm text-gray-500">
+                    <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
                       <span>{region.destinationCount || 0} hospedajes</span>
                       <span>{region.type}</span>
                     </div>
@@ -384,19 +384,19 @@ const RegionManager = ({ destinations, onRegionUpdate }) => {
                         onClick={() => handleUpdateRegion(region.id, { 
                           status: region.status === 'active' ? 'inactive' : 'active' 
                         })}
-                        className="px-3 py-1 bg-blue-500 text-white rounded-lg text-xs hover:bg-blue-600"
+                        className="px-3 py-1 bg-blue-500 dark:bg-blue-600 text-white rounded-lg text-xs hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors duration-200"
                       >
                         {region.status === 'active' ? 'Desactivar' : 'Activar'}
                       </button>
                       <button
                         onClick={() => setSelectedRegion(region)}
-                        className="px-3 py-1 bg-green-500 text-white rounded-lg text-xs hover:bg-green-600"
+                        className="px-3 py-1 bg-green-500 dark:bg-green-600 text-white rounded-lg text-xs hover:bg-green-600 dark:hover:bg-green-700 transition-colors duration-200"
                       >
                         Editar
                       </button>
                       <button
                         onClick={() => handleDeleteRegion(region.id)}
-                        className="px-3 py-1 bg-red-500 text-white rounded-lg text-xs hover:bg-red-600"
+                        className="px-3 py-1 bg-red-500 dark:bg-red-600 text-white rounded-lg text-xs hover:bg-red-600 dark:hover:bg-red-700 transition-colors duration-200"
                       >
                         Eliminar
                       </button>

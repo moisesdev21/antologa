@@ -4,8 +4,9 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import App from './App.jsx';
 import { AuthProvider } from "./context/AuthContext";
-document.documentElement.classList.add('light');
-document.documentElement.classList.remove('dark');
+// ⚠️ ELIMINA ESTAS LÍNEAS ⚠️
+// document.documentElement.classList.add('light');
+// document.documentElement.classList.remove('dark');
 
 
 createRoot(document.getElementById('root')).render(

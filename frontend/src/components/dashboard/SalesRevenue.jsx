@@ -399,10 +399,10 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'Completed': return { bg: 'bg-green-100', text: 'text-green-800', icon: CheckCircle };
-      case 'Pending': return { bg: 'bg-yellow-100', text: 'text-yellow-800', icon: Clock };
-      case 'Failed': return { bg: 'bg-red-100', text: 'text-red-800', icon: XCircle };
-      default: return { bg: 'bg-gray-100', text: 'text-gray-800', icon: Clock };
+      case 'Completed': return { bg: 'bg-green-100 dark:bg-green-900', text: 'text-green-800 dark:text-green-200', icon: CheckCircle };
+      case 'Pending': return { bg: 'bg-yellow-100 dark:bg-yellow-900', text: 'text-yellow-800 dark:text-yellow-200', icon: Clock };
+      case 'Failed': return { bg: 'bg-red-100 dark:bg-red-900', text: 'text-red-800 dark:text-red-200', icon: XCircle };
+      default: return { bg: 'bg-gray-100 dark:bg-gray-700', text: 'text-gray-800 dark:text-gray-200', icon: Clock };
     }
   };
 
@@ -417,9 +417,9 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
 
   const getTransactionStatusColor = (status) => {
     switch (status) {
-      case 'Completed': return 'text-green-600';
-      case 'Failed': return 'text-red-600';
-      default: return 'text-yellow-600';
+      case 'Completed': return 'text-green-600 dark:text-green-400';
+      case 'Failed': return 'text-red-600 dark:text-red-400';
+      default: return 'text-yellow-600 dark:text-yellow-400';
     }
   };
 
@@ -437,7 +437,7 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
     return (
       <div className="flex justify-center items-center h-64">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-        <span className="ml-3 text-gray-600">Cargando datos de ventas...</span>
+        <span className="ml-3 text-gray-600 dark:text-gray-400">Cargando datos de ventas...</span>
       </div>
     );
   }
@@ -447,13 +447,13 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
       {/* HEADER */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Sales & Revenue</h2>
-          <p className="text-gray-600">Visión financiera y gestión de pagos a negocios</p>
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">Sales & Revenue</h2>
+          <p className="text-gray-600 dark:text-gray-400">Visión financiera y gestión de pagos a negocios</p>
         </div>
         <div className="flex gap-3">
           <button 
             onClick={onRefresh}
-            className="bg-blue-500 text-white px-5 py-2.5 rounded-lg hover:bg-blue-600 transition-colors font-medium flex items-center gap-2 disabled:opacity-50"
+            className="bg-blue-500 dark:bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors duration-200 font-medium flex items-center gap-2 disabled:opacity-50"
             disabled={loading}
           >
             <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
@@ -461,7 +461,7 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
           </button>
           <button 
             onClick={handleGenerateReport}
-            className="bg-green-500 text-white px-5 py-2.5 rounded-lg hover:bg-green-600 transition-colors font-medium flex items-center gap-2"
+            className="bg-green-500 dark:bg-green-600 text-white px-5 py-2.5 rounded-lg hover:bg-green-600 dark:hover:bg-green-700 transition-colors duration-200 font-medium flex items-center gap-2"
           >
             <FileText className="h-4 w-4" />
             Reporte Fiscal
@@ -471,64 +471,64 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
 
       {/* KPIs PRINCIPALES */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 w-full">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <DollarSign className="h-6 w-6 text-blue-600" />
+            <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
+              <DollarSign className="h-6 w-6 text-blue-600 dark:text-blue-400" />
             </div>
             <span className={`text-sm font-medium ${
-              kpis.growthRate >= 0 ? 'text-green-600' : 'text-red-600'
+              kpis.growthRate >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
             }`}>
               {kpis.growthRate >= 0 ? '+' : ''}{kpis.growthRate.toFixed(1)}%
             </span>
           </div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-1">
+          <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">
             {formatCurrency(kpis.totalGMV)}
           </h3>
-          <p className="text-sm text-gray-600">Ingresos Totales (GMV)</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Ingresos Totales (GMV)</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <TrendingUp className="h-6 w-6 text-green-600" />
+            <div className="p-2 bg-green-100 dark:bg-green-900 rounded-lg">
+              <TrendingUp className="h-6 w-6 text-green-600 dark:text-green-400" />
             </div>
-            <span className="text-sm font-medium text-green-600">Neto</span>
+            <span className="text-sm font-medium text-green-600 dark:text-green-400">Neto</span>
           </div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-1">
+          <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">
             {formatCurrency(kpis.netRevenue)}
           </h3>
-          <p className="text-sm text-gray-600">Comisión Neta (15%)</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Comisión Neta (15%)</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <BarChart3 className="h-6 w-6 text-purple-600" />
+            <div className="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg">
+              <BarChart3 className="h-6 w-6 text-purple-600 dark:text-purple-400" />
             </div>
-            <span className="text-sm font-medium text-purple-600">
+            <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
               {kpis.totalTransactions}
             </span>
           </div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-1">
+          <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">
             {kpis.completedTransactions}
           </h3>
-          <p className="text-sm text-gray-600">Transacciones Completadas</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Transacciones Completadas</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-orange-100 rounded-lg">
-              <CheckCircle className="h-6 w-6 text-orange-600" />
+            <div className="p-2 bg-orange-100 dark:bg-orange-900 rounded-lg">
+              <CheckCircle className="h-6 w-6 text-orange-600 dark:text-orange-400" />
             </div>
-            <span className="text-sm font-medium text-orange-600">
+            <span className="text-sm font-medium text-orange-600 dark:text-orange-400">
               {reconciliationStats.reconciliationRate.toFixed(1)}%
             </span>
           </div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-1">
+          <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">
             {reconciliationStats.reconciled}/{reconciliationStats.totalBusinesses}
           </h3>
-          <p className="text-sm text-gray-600">Negocios Conciliados</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Negocios Conciliados</p>
         </div>
       </div>
 
@@ -536,16 +536,16 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         
         {/* 📈 GRÁFICO REVENUE CHART */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300">
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h3 className="text-xl font-semibold text-gray-800">Revenue por Mes</h3>
-              <p className="text-gray-600">Ganancias diarias del mes</p>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Revenue por Mes</h3>
+              <p className="text-gray-600 dark:text-gray-400">Ganancias diarias del mes</p>
             </div>
             <select 
               value={selectedMonth} 
               onChange={(e) => setSelectedMonth(Number(e.target.value))} 
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
             >
               {monthNames.map((month, index) => (
                 <option key={index} value={index}>{month}</option>
@@ -556,11 +556,11 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
           <div className="flex items-center gap-6 mb-6">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-[#C45A32]"></div>
-              <span className="text-gray-600 text-sm">
+              <span className="text-gray-600 dark:text-gray-400 text-sm">
                 Actual: ${revenueStats.current.toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </span>
             </div>
-            <div className={`flex items-center gap-1 ${revenueStats.growth >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            <div className={`flex items-center gap-1 ${revenueStats.growth >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
                 <path d={revenueStats.growth >= 0
                   ? "M8 4L12 8H9V12H7V8H4L8 4Z"
@@ -608,7 +608,7 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
                 }} 
               />
             ) : (
-              <div className="h-full flex items-center justify-center text-gray-500">
+              <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-400">
                 No hay datos disponibles
               </div>
             )}
@@ -616,13 +616,13 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
         </div>
 
         {/* 💰 GRÁFICO TOTAL PROFIT */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300">
           <div className="mb-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Total Profit</h3>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Total Profit</h3>
             <p className="text-2xl font-bold text-[#5B6EFF]">
               ${totalEarnings.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </p>
-            <p className="text-gray-600">Total Earnings (2025–2030)</p>
+            <p className="text-gray-600 dark:text-gray-400">Total Earnings (2025–2030)</p>
           </div>
           <div className="h-64">
             {profitChartData ? (
@@ -644,7 +644,7 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
                 }} 
               />
             ) : (
-              <div className="h-full flex items-center justify-center text-gray-500">
+              <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-400">
                 Cargando datos de profit...
               </div>
             )}
@@ -653,13 +653,13 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
       </div>
 
       {/* GRÁFICO DE TENDENCIAS DE VENTAS */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300">
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-xl font-semibold text-gray-800">Tendencia de Ventas</h3>
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Tendencia de Ventas</h3>
           <select
             value={dateRange}
             onChange={(e) => setDateRange(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
           >
             <option value="month">Último Mes</option>
             <option value="quarter">Último Trimestre</option>
@@ -670,10 +670,13 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
           {salesTrends.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={salesTrends}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis tickFormatter={(value) => formatCurrency(value)} />
-                <Tooltip formatter={(value) => [formatCurrency(value), 'Monto']} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                <XAxis dataKey="month" stroke="#9CA3AF" />
+                <YAxis tickFormatter={(value) => formatCurrency(value)} stroke="#9CA3AF" />
+                <Tooltip 
+                  formatter={(value) => [formatCurrency(value), 'Monto']}
+                  contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', color: '#F9FAFB' }}
+                />
                 <Legend />
                 <Line 
                   type="monotone" 
@@ -695,7 +698,7 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
               </LineChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex justify-center items-center h-full text-gray-500">
+            <div className="flex justify-center items-center h-full text-gray-500 dark:text-gray-400">
               No hay datos suficientes para mostrar el gráfico
             </div>
           )}
@@ -703,27 +706,27 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
       </div>
 
       {/* SECCIÓN: TRANSACCIONES RECIENTES */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h3 className="text-xl font-semibold text-gray-800">Recent Transactions</h3>
-            <p className="text-gray-600">Income vs Expense</p>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Recent Transactions</h3>
+            <p className="text-gray-600 dark:text-gray-400">Income vs Expense</p>
           </div>
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+        <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg transition-colors duration-300">
           <div className="text-center">
-            <p className="text-sm text-gray-600 font-medium">Income</p>
-            <p className="text-lg text-green-600 font-semibold">+${transactionStats.income.toLocaleString()}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Income</p>
+            <p className="text-lg text-green-600 dark:text-green-400 font-semibold">+${transactionStats.income.toLocaleString()}</p>
           </div>
           <div className="text-center">
-            <p className="text-sm text-gray-600 font-medium">Expense</p>
-            <p className="text-lg text-red-600 font-semibold">-${transactionStats.expense.toLocaleString()}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Expense</p>
+            <p className="text-lg text-red-600 dark:text-red-400 font-semibold">-${transactionStats.expense.toLocaleString()}</p>
           </div>
           <div className="text-center">
-            <p className="text-sm text-gray-600 font-medium">Net</p>
-            <p className={`text-lg font-semibold ${transactionStats.net >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Net</p>
+            <p className={`text-lg font-semibold ${transactionStats.net >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
               {transactionStats.net >= 0 ? '+' : ''}${transactionStats.net.toLocaleString()}
             </p>
           </div>
@@ -732,12 +735,12 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
         {/* Transactions List */}
         <div className="space-y-3 mb-6 max-h-80 overflow-y-auto">
           {recentTransactions.map((transaction) => (
-            <div key={transaction.id} className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <div key={transaction.id} className="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
               <div className="flex items-center gap-3">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  transaction.isPositive ? 'bg-green-50' : 'bg-red-50'
+                  transaction.isPositive ? 'bg-green-50 dark:bg-green-900' : 'bg-red-50 dark:bg-red-900'
                 }`}>
-                  <span className={`text-sm ${transaction.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+                  <span className={`text-sm ${transaction.isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                     {transaction.type.includes('PayPal') ? '🏦' :
                      transaction.type.includes('Bank') ? '💳' :
                      transaction.type.includes('Credit') ? '💠' :
@@ -746,42 +749,42 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <p className="font-medium text-gray-800">{transaction.type}</p>
+                    <p className="font-medium text-gray-800 dark:text-white">{transaction.type}</p>
                     <span className={`text-xs px-1 py-0.5 rounded ${getTransactionStatusColor(transaction.status)}`}>
                       {transaction.status}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600">{transaction.description}</p>
-                  <p className="text-xs text-gray-500">{formatDate(transaction.date)}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{transaction.description}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-500">{formatDate(transaction.date)}</p>
                 </div>
               </div>
-              <div className={`font-semibold ${transaction.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+              <div className={`font-semibold ${transaction.isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                 {transaction.isPositive ? '+' : '-'}${transaction.amount.toLocaleString()}
               </div>
             </div>
           ))}
         </div>
 
-        <button className="w-full h-10 flex items-center justify-center gap-2 rounded-lg bg-white border border-gray-300 hover:bg-gray-50 transition-colors">
-          <span className="text-sm font-semibold text-gray-800">View all transactions</span>
+        <button className="w-full h-10 flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200">
+          <span className="text-sm font-semibold text-gray-800 dark:text-white">View all transactions</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
-            <path d="M6 12L10 8L6 4" stroke="#2A3547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
       </div>
 
       {/* GESTIÓN DE TRANSACCIONES COMPLETAS */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="p-6 border-b border-gray-200">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors duration-300">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
             <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Gestión de Transacciones</h3>
-              <p className="text-gray-600">Listado detallado de reservas y compras</p>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Gestión de Transacciones</h3>
+              <p className="text-gray-600 dark:text-gray-400">Listado detallado de reservas y compras</p>
             </div>
             <div className="flex gap-3">
               <button 
                 onClick={handleExportData}
-                className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors flex items-center gap-2"
+                className="bg-gray-500 dark:bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center gap-2"
               >
                 <Download className="h-4 w-4" />
                 Exportar
@@ -798,14 +801,14 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
                 placeholder="Buscar por ID, cliente, negocio o monto..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
               />
             </div>
 
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
             >
               <option value="">Todos los estados</option>
               <option value="Completed">Completados</option>
@@ -814,7 +817,7 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
             </select>
 
             <div className="flex items-center justify-between">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Mostrando {paginatedPayments.length} de {filteredPayments.length} transacciones
               </p>
             </div>
@@ -823,20 +826,20 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
 
         {/* Tabla de transacciones */}
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Negocio</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monto</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comisión</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ID</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Fecha</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Cliente</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Negocio</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Monto</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Comisión</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Estado</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {paginatedPayments.length > 0 ? (
                 paginatedPayments.map((payment) => {
                   const commission = payment.amount * 0.15;
@@ -846,25 +849,25 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
                   const StatusIcon = statusConfig.icon;
 
                   return (
-                    <tr key={payment.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#{payment.id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <tr key={payment.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">#{payment.id}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                         {payment.createdAt ? new Date(payment.createdAt).toLocaleDateString('es-ES', {
                           year: 'numeric', month: '2-digit', day: '2-digit'
                         }) : 'N/A'}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                         {user?.name || 'Cliente no encontrado'}
-                        {user?.email && <div className="text-xs text-gray-500">{user.email}</div>}
+                        {user?.email && <div className="text-xs text-gray-500 dark:text-gray-400">{user.email}</div>}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                         {business?.businessName || 'Negocio no encontrado'}
-                        {business?.businessEmail && <div className="text-xs text-gray-500">{business.businessEmail}</div>}
+                        {business?.businessEmail && <div className="text-xs text-gray-500 dark:text-gray-400">{business.businessEmail}</div>}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">
                         {formatCurrency(payment.amount)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 dark:text-green-400 font-semibold">
                         {formatCurrency(commission)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -878,7 +881,7 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
                           <button
                             onClick={() => handleReconcilePayment(payment.id)}
                             disabled={isReconciling[payment.id]}
-                            className="text-blue-600 hover:text-blue-900 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+                            className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 transition-colors duration-200"
                           >
                             {isReconciling[payment.id] ? (
                               <>
@@ -890,7 +893,7 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
                             )}
                           </button>
                         ) : (
-                          <span className="text-gray-400 text-xs">No aplica</span>
+                          <span className="text-gray-400 dark:text-gray-500 text-xs">No aplica</span>
                         )}
                       </td>
                     </tr>
@@ -898,7 +901,7 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
                 })
               ) : (
                 <tr>
-                  <td colSpan="8" className="px-6 py-8 text-center text-gray-500">
+                  <td colSpan="8" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
                     {filteredPayments.length === 0 && payments.length > 0 ? 
                       'No se encontraron transacciones que coincidan con los filtros' : 
                       'No hay transacciones disponibles'
@@ -912,24 +915,24 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
 
         {/* Paginación */}
         {totalPages > 1 && (
-          <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+          <div className="bg-white dark:bg-gray-800 px-4 py-3 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 sm:px-6 transition-colors duration-300">
             <div className="flex justify-between sm:justify-end w-full">
               <button
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
               >
                 Anterior
               </button>
               <div className="flex items-center mx-4">
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
                   Página <span className="font-medium">{currentPage}</span> de <span className="font-medium">{totalPages}</span>
                 </span>
               </div>
               <button
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
               >
                 Siguiente
               </button>
@@ -939,65 +942,65 @@ const SalesRevenue = ({ payments = [], businesses = [], users = [], loading, onR
       </div>
 
       {/* CONCILIACIÓN DE PAGOS */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-300">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Conciliación de Pagos</h3>
-            <p className="text-gray-600">Estado de pagos a negocios afiliados</p>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Conciliación de Pagos</h3>
+            <p className="text-gray-600 dark:text-gray-400">Estado de pagos a negocios afiliados</p>
           </div>
           <div className="flex items-center gap-2">
             <div className={`w-3 h-3 rounded-full ${
               reconciliationStats.reconciliationRate >= 80 ? 'bg-green-500' :
               reconciliationStats.reconciliationRate >= 50 ? 'bg-yellow-500' : 'bg-red-500'
             }`}></div>
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-gray-600 dark:text-gray-400">
               {reconciliationStats.reconciliationRate.toFixed(1)}% Conciliado
             </span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+          <div className="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-800 rounded-lg p-4 transition-colors duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-green-700 font-medium">Completados</p>
-                <p className="text-2xl font-bold text-green-800">{reconciliationStats.reconciled}</p>
-                <p className="text-xs text-green-600 mt-1">Negocios con pagos</p>
+                <p className="text-sm text-green-700 dark:text-green-300 font-medium">Completados</p>
+                <p className="text-2xl font-bold text-green-800 dark:text-green-200">{reconciliationStats.reconciled}</p>
+                <p className="text-xs text-green-600 dark:text-green-400 mt-1">Negocios con pagos</p>
               </div>
-              <CheckCircle className="h-8 w-8 text-green-600" />
+              <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
           </div>
 
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+          <div className="bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 transition-colors duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-yellow-700 font-medium">Pendientes</p>
-                <p className="text-2xl font-bold text-yellow-800">{reconciliationStats.pendingReconciliation}</p>
-                <p className="text-xs text-yellow-600 mt-1">Por conciliar</p>
+                <p className="text-sm text-yellow-700 dark:text-yellow-300 font-medium">Pendientes</p>
+                <p className="text-2xl font-bold text-yellow-800 dark:text-yellow-200">{reconciliationStats.pendingReconciliation}</p>
+                <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-1">Por conciliar</p>
               </div>
-              <Clock className="h-8 w-8 text-yellow-600" />
+              <Clock className="h-8 w-8 text-yellow-600 dark:text-yellow-400" />
             </div>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-800 rounded-lg p-4 transition-colors duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-blue-700 font-medium">Total Negocios</p>
-                <p className="text-2xl font-bold text-blue-800">{reconciliationStats.totalBusinesses}</p>
-                <p className="text-xs text-blue-600 mt-1">Afiliados activos</p>
+                <p className="text-sm text-blue-700 dark:text-blue-300 font-medium">Total Negocios</p>
+                <p className="text-2xl font-bold text-blue-800 dark:text-blue-200">{reconciliationStats.totalBusinesses}</p>
+                <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">Afiliados activos</p>
               </div>
-              <Filter className="h-8 w-8 text-blue-600" />
+              <Filter className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             </div>
           </div>
         </div>
 
         {/* Barra de progreso */}
         <div className="mt-6">
-          <div className="flex justify-between text-sm text-gray-600 mb-2">
+          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
             <span>Progreso de conciliación</span>
             <span>{reconciliationStats.reconciliationRate.toFixed(1)}%</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
             <div 
               className={`h-2 rounded-full ${
                 reconciliationStats.reconciliationRate >= 80 ? 'bg-green-500' :

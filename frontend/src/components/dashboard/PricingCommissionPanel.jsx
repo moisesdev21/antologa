@@ -77,21 +77,21 @@ const PricingCommissionPanel = ({ destinations, onPricingUpdate }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 dark:bg-gray-800">
       {/* Estadísticas de Precios */}
-      <div className="xl:col-span-1 space-y-6">
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="xl:col-span-1 space-y-6 ">
+        <div className="bg-white rounded-lg shadow p-6 dark:bg-gray-800 ">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 dark:text-white">
             Resumen de Precios
           </h3>
           <div className="space-y-4">
             {Object.entries(pricingStats).map(([type, stats]) => (
               <div key={type} className="border-b border-gray-200 pb-3">
                 <div className="flex justify-between items-start mb-2">
-                  <span className="font-medium text-gray-900">{type}</span>
-                  <span className="text-sm text-gray-500">{stats.count} hospedajes</span>
+                  <span className="font-medium text-gray-900 dark:text-white" >{type}</span>
+                  <span className="text-sm text-gray-500 dark:text-white" >{stats.count} hospedajes</span>
                 </div>
-                <div className="text-sm text-gray-600 space-y-1">
+                <div className="text-sm text-gray-600 space-y-1 dark:text-white">
                   <div>Precio base promedio: ${stats.avgBasePrice.toFixed(2)}</div>
                   <div>Comisión promedio: {stats.avgCommission.toFixed(1)}%</div>
                   <div>Ingreso potencial: ${stats.totalRevenue.toFixed(2)}</div>
@@ -102,15 +102,15 @@ const PricingCommissionPanel = ({ destinations, onPricingUpdate }) => {
         </div>
 
         {/* Configuración Global de Comisiones */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 dark:text-white">
             Comisiones por Tipo
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-3 ">
             {Object.keys(pricingStats).map(type => (
               <div key={type} className="flex justify-between items-center">
-                <span className="text-sm text-gray-700">{type}</span>
-                <span className="text-sm font-medium text-blue-600">
+                <span className="text-sm text-gray-700 dark:text-white">{type}</span>
+                <span className="text-sm font-medium text-blue-600 dark:text-white">
                   {pricingStats[type].avgCommission.toFixed(1)}%
                 </span>
               </div>
@@ -121,12 +121,12 @@ const PricingCommissionPanel = ({ destinations, onPricingUpdate }) => {
 
       {/* Gestión Individual de Precios */}
       <div className="xl:col-span-2">
-        <div className="bg-white rounded-lg shadow">
+        <div className="bg-white rounded-lg shadow dark:bg-gray-800">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Gestión de Precios y Comisiones
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-white">
               Actualiza precios base y comisiones por hospedaje
             </p>
           </div>
@@ -134,7 +134,7 @@ const PricingCommissionPanel = ({ destinations, onPricingUpdate }) => {
           <div className="p-6 space-y-6">
             {/* Selector de Hospedaje */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-white">
                 Seleccionar Hospedaje
               </label>
               <select

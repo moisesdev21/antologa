@@ -25,17 +25,17 @@ const LodgingFilters = ({ filters, onFilterChange, onClearFilters, filteredCount
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 transition-colors duration-300">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h3 className="text-xl font-semibold text-gray-900">Filtros Avanzados de Hospedajes</h3>
-          <p className="text-sm text-gray-600 mt-1">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Filtros Avanzados de Hospedajes</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
             Mostrando {filteredCount} de {totalCount} hospedajes
           </p>
         </div>
         <button
           onClick={onClearFilters}
-          className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm"
+          className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200 text-sm"
         >
           Limpiar Filtros
         </button>
@@ -44,7 +44,7 @@ const LodgingFilters = ({ filters, onFilterChange, onClearFilters, filteredCount
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {/* Búsqueda por Nombre */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Buscar Hospedaje
           </label>
           <input
@@ -52,19 +52,19 @@ const LodgingFilters = ({ filters, onFilterChange, onClearFilters, filteredCount
             value={filters.searchTerm}
             onChange={(e) => onFilterChange('searchTerm', e.target.value)}
             placeholder="Nombre, descripción..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
           />
         </div>
 
         {/* Tipo de Alojamiento */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Tipo de Alojamiento
           </label>
           <select
             value={filters.lodgingType}
             onChange={(e) => onFilterChange('lodgingType', e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
           >
             <option value="">Todos los tipos</option>
             {lodgingTypes.map(type => (
@@ -75,13 +75,13 @@ const LodgingFilters = ({ filters, onFilterChange, onClearFilters, filteredCount
 
         {/* Región */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Región
           </label>
           <select
             value={filters.region}
             onChange={(e) => onFilterChange('region', e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
           >
             <option value="">Todas las regiones</option>
             {regions.map(region => (
@@ -92,13 +92,13 @@ const LodgingFilters = ({ filters, onFilterChange, onClearFilters, filteredCount
 
         {/* Estado del Hospedaje */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Estado del Hospedaje
           </label>
           <select
             value={filters.status}
             onChange={(e) => onFilterChange('status', e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
           >
             <option value="">Todos los estados</option>
             <option value="active">Activo</option>
@@ -109,13 +109,13 @@ const LodgingFilters = ({ filters, onFilterChange, onClearFilters, filteredCount
 
         {/* Estado de Verificación */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Estado de Verificación
           </label>
           <select
             value={filters.verificationStatus}
             onChange={(e) => onFilterChange('verificationStatus', e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
           >
             <option value="">Todos los estados</option>
             <option value="verified">Verificado</option>
@@ -127,29 +127,29 @@ const LodgingFilters = ({ filters, onFilterChange, onClearFilters, filteredCount
 
         {/* Rango de Precio */}
         <div className="xl:col-span-3">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Rango de Precio: ${priceRange.min} - ${priceRange.max}
           </label>
           <div className="space-y-4">
             <div className="flex space-x-4">
               <div className="flex-1">
-                <label className="block text-xs text-gray-500 mb-1">Mínimo</label>
+                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Mínimo</label>
                 <input
                   type="number"
                   value={priceRange.min}
                   onChange={(e) => handlePriceChange('min', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                   min="0"
                   max="1000"
                 />
               </div>
               <div className="flex-1">
-                <label className="block text-xs text-gray-500 mb-1">Máximo</label>
+                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Máximo</label>
                 <input
                   type="number"
                   value={priceRange.max}
                   onChange={(e) => handlePriceChange('max', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                   min="0"
                   max="1000"
                 />
@@ -163,7 +163,7 @@ const LodgingFilters = ({ filters, onFilterChange, onClearFilters, filteredCount
                 step="10"
                 value={priceRange.min}
                 onChange={(e) => handlePriceChange('min', e.target.value)}
-                className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                className="flex-1 h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer slider-dark"
               />
               <input
                 type="range"
@@ -172,12 +172,34 @@ const LodgingFilters = ({ filters, onFilterChange, onClearFilters, filteredCount
                 step="10"
                 value={priceRange.max}
                 onChange={(e) => handlePriceChange('max', e.target.value)}
-                className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                className="flex-1 h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer slider-dark"
               />
             </div>
           </div>
         </div>
       </div>
+
+      {/* Estilos adicionales para los sliders en dark mode */}
+      <style jsx>{`
+        .slider-dark::-webkit-slider-thumb {
+          background: #3b82f6;
+          border: 2px solid #1e40af;
+        }
+        .slider-dark::-moz-range-thumb {
+          background: #3b82f6;
+          border: 2px solid #1e40af;
+        }
+        @media (prefers-color-scheme: dark) {
+          .slider-dark::-webkit-slider-thumb {
+            background: #60a5fa;
+            border: 2px solid #3b82f6;
+          }
+          .slider-dark::-moz-range-thumb {
+            background: #60a5fa;
+            border: 2px solid #3b82f6;
+          }
+        }
+      `}</style>
     </div>
   );
 };

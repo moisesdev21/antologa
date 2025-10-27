@@ -1,4 +1,4 @@
-// src/hooks/useDashboardData.js - COMPLETO Y CORREGIDO
+// src/hooks/useDashboardData.js
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -14,10 +14,13 @@ const useDashboardData = () => {
     reviews: [],
     admins: [],
     activityLogs: [],
-    trafficData: {}, // Cambiado para guardar todo el objeto traffic
+    trafficData: {},
     loading: true,
     errors: {}
   });
+
+  // API base producción
+ const API_BASE = 'http://localhost:4000/api';
 
   const fetchDashboardData = async () => {
     setData(prev => ({ ...prev, loading: true, errors: {} }));
@@ -25,17 +28,18 @@ const useDashboardData = () => {
     const errors = {};
 
     const endpoints = {
-      users: 'http://localhost:4000/api/auth/users',
-      businesses: 'http://localhost:4000/api/auth/businesses',
-      destinations: 'http://localhost:4000/api/auth/destinations',
-      experiences: 'http://localhost:4000/api/auth/experiences',
-      payments: 'http://localhost:4000/api/auth/payments',
-      articles: 'http://localhost:4000/api/auth/articles',
-      categories: 'http://localhost:4000/api/auth/categories',
-      reviews: 'http://localhost:4000/api/auth/reviews',
-      admins: 'http://localhost:4000/api/auth/admins',
-      activityLogs: 'http://localhost:4000/api/auth/admin-activities',
-      traffic: 'http://localhost:4000/api/auth/traffic'
+      users: `${API_BASE}/auth/users`,
+      businesses: `${API_BASE}/auth/businesses`,
+      destinations: `${API_BASE}/auth/destinations`,
+      experiences: `${API_BASE}/auth/experiences`,
+      blog: `${API_BASE}/auth/blog`,
+      payments: `${API_BASE}/auth/payments`,
+      articles: `${API_BASE}/auth/articles`,
+      categories: `${API_BASE}/auth/categories`,
+      reviews: `${API_BASE}/auth/reviews`,
+      admins: `${API_BASE}/auth/admins`,
+      activityLogs: `${API_BASE}/auth/admin-activities`,
+      traffic: `${API_BASE}/auth/traffic`
     };
 
     const fetchData = async (key, url, fallback = []) => {
@@ -56,6 +60,7 @@ const useDashboardData = () => {
       fetchData('businesses', endpoints.businesses),
       fetchData('destinations', endpoints.destinations),
       fetchData('experiences', endpoints.experiences),
+      fetchData('blog', endpoints.blog),
       fetchData('payments', endpoints.payments),
       fetchData('articles', endpoints.articles),
       fetchData('categories', endpoints.categories),
@@ -65,10 +70,7 @@ const useDashboardData = () => {
       fetchData('traffic', endpoints.traffic, {})
     ]);
 
-    // IMPORTANTE: Guardamos todo el objeto traffic
     results.trafficData = results.traffic || {};
-
-    console.log('📊 Traffic data completo:', results.trafficData);
 
     setData({ ...results, loading: false, errors });
   };
@@ -77,85 +79,43 @@ const useDashboardData = () => {
     fetchDashboardData();
   }, []);
 
-  // Funciones para CRUD de artículos
+  // Funciones CRUD Artículos
   const createArticle = async (articleData) => {
-    try {
-      const response = await axios.post('http://localhost:4000/api/auth/articles', articleData);
-      return response.data;
-    } catch (error) {
-      throw new Error('Error creando artículo: ' + error.message);
-    }
+    const res = await axios.post(`${API_BASE}/auth/articles`, articleData);
+    return res.data;
   };
-
   const updateArticle = async (id, articleData) => {
-    try {
-      const response = await axios.put(`http://localhost:4000/api/auth/articles/${id}`, articleData);
-      return response.data;
-    } catch (error) {
-      throw new Error('Error actualizando artículo: ' + error.message);
-    }
+    const res = await axios.put(`${API_BASE}/auth/articles/${id}`, articleData);
+    return res.data;
   };
-
   const deleteArticle = async (id) => {
-    try {
-      await axios.delete(`http://localhost:4000/api/auth/articles/${id}`);
-    } catch (error) {
-      throw new Error('Error eliminando artículo: ' + error.message);
-    }
+    await axios.delete(`${API_BASE}/auth/articles/${id}`);
   };
 
-  // Funciones para CRUD de categorías
+  // Funciones CRUD Categorías
   const createCategory = async (categoryData) => {
-    try {
-      const response = await axios.post('http://localhost:4000/api/auth/categories', categoryData);
-      return response.data;
-    } catch (error) {
-      throw new Error('Error creando categoría: ' + error.message);
-    }
+    const res = await axios.post(`${API_BASE}/auth/categories`, categoryData);
+    return res.data;
   };
-
   const updateCategory = async (id, categoryData) => {
-    try {
-      const response = await axios.put(`http://localhost:4000/api/auth/categories/${id}`, categoryData);
-      return response.data;
-    } catch (error) {
-      throw new Error('Error actualizando categoría: ' + error.message);
-    }
+    const res = await axios.put(`${API_BASE}/auth/categories/${id}`, categoryData);
+    return res.data;
   };
-
   const deleteCategory = async (id) => {
-    try {
-      await axios.delete(`http://localhost:4000/api/auth/categories/${id}`);
-    } catch (error) {
-      throw new Error('Error eliminando categoría: ' + error.message);
-    }
+    await axios.delete(`${API_BASE}/auth/categories/${id}`);
   };
 
-  // Funciones para moderación de reseñas
+  // Funciones para reseñas
   const approveReview = async (id) => {
-    try {
-      const response = await axios.put(`http://localhost:4000/api/auth/reviews/${id}/approve`);
-      return response.data;
-    } catch (error) {
-      throw new Error('Error aprobando reseña: ' + error.message);
-    }
+    const res = await axios.put(`${API_BASE}/auth/reviews/${id}/approve`);
+    return res.data;
   };
-
   const rejectReview = async (id) => {
-    try {
-      const response = await axios.put(`http://localhost:4000/api/auth/reviews/${id}/reject`);
-      return response.data;
-    } catch (error) {
-      throw new Error('Error rechazando reseña: ' + error.message);
-    }
+    const res = await axios.put(`${API_BASE}/auth/reviews/${id}/reject`);
+    return res.data;
   };
-
   const deleteReview = async (id) => {
-    try {
-      await axios.delete(`http://localhost:4000/api/auth/reviews/${id}`);
-    } catch (error) {
-      throw new Error('Error eliminando reseña: ' + error.message);
-    }
+    await axios.delete(`${API_BASE}/auth/reviews/${id}`);
   };
 
   // Métricas derivadas
@@ -180,8 +140,6 @@ const useDashboardData = () => {
     totalReviews: data.reviews.length,
     totalRevenue: data.payments.filter(p => p.status === 'Completed').reduce((sum, p) => sum + p.amount, 0),
     totalTransactions: data.payments.filter(p => p.status === 'Completed').length,
-    
-    // Métricas de Blog
     blogStats: {
       published: data.articles.filter(a => a.status === 'published').length,
       drafts: data.articles.filter(a => a.status === 'draft').length,
@@ -189,20 +147,14 @@ const useDashboardData = () => {
       news: data.articles.filter(a => a.category === 'Noticias de Panamá').length,
       events: data.articles.filter(a => a.category === 'Eventos del Día').length
     },
-
-    // Métricas de Reseñas
     reviewStats: {
       reported: data.reviews.filter(r => r.reported).length,
       pending: data.reviews.filter(r => !r.moderated).length,
       approved: data.reviews.filter(r => r.moderated && !r.rejected).length,
       rejected: data.reviews.filter(r => r.rejected).length
     },
-
-    // Gráficas
     userGrowth: groupByMonth(data.users, "createdAt").map(u => ({ month: u.month, usuarios: u.count })),
     businessGrowth: groupByMonth(data.businesses, "createdAt").map(b => ({ month: b.month, negocios: b.count })),
-
-    // 🚨 CAMBIO IMPORTANTE: Usamos TODOS los datos de trafficData
     visitsByMonth: data.trafficData.visitsByMonth || [],
     devicesUsage: data.trafficData.devicesUsage || [],
     browsers: data.trafficData.browsers || [],
@@ -219,6 +171,7 @@ const useDashboardData = () => {
     businesses: data.businesses,
     destinations: data.destinations,
     experiences: data.experiences,
+    
     payments: data.payments,
     articles: data.articles,
     categories: data.categories,
@@ -227,7 +180,6 @@ const useDashboardData = () => {
     activityLogs: data.activityLogs,
     trafficData: data.trafficData,
     refetch: fetchDashboardData,
-    // Funciones CRUD
     createArticle,
     updateArticle,
     deleteArticle,

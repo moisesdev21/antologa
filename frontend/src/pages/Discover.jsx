@@ -23,17 +23,17 @@ const Discover = () => {
   };
 
   return (
-    <div className="relative bg-white min-h-screen mt-[6.25rem]">
-      <div className="pt-[1.25rem]"> 
+    <div className="relative bg-white dark:bg-dark-bg min-h-screen mt-[0.25rem] transition-colors duration-300">
+      <div className="pt-[8.25rem]"> 
         
         {/* Toggle Switch Centrado */}
         <div className="flex justify-center mb-[1rem]">
-          <div className="bg-gray-100 rounded-full p-[0.5rem] flex gap-[0.5rem] shadow-md">
+          <div className="bg-gray-100 dark:bg-dark-surface rounded-full p-[0.5rem] flex gap-[0.5rem] shadow-md">
             
             {/* Destinations */}
             <div
               onClick={() => handleTabChange("destinations")}
-              className={`px-[1rem] py-[0.625rem] inline-flex justify-center items-start cursor-pointer ${
+              className={`px-[1rem] py-[0.625rem] inline-flex justify-center items-start cursor-pointer transition-all duration-300 ${
                 activeTab === "destinations" ? "bg-teal-500 rounded-full shadow-lg" : ""
               }`}
             >
@@ -43,7 +43,7 @@ const Discover = () => {
                     className={`text-center justify-center text-[1rem] leading-normal font-['Roboto'] ${
                       activeTab === "destinations"
                         ? "text-stone-50 font-medium"
-                        : "text-color-grey-42 font-normal"
+                        : "text-color-grey-42 dark:text-gray-300 font-normal"
                     }`}
                   >
                     Destinations
@@ -55,7 +55,7 @@ const Discover = () => {
             {/* Experiences */}
             <div
               onClick={() => handleTabChange("experiences")}
-              className={`px-[1rem] py-[0.625rem] inline-flex justify-center items-start cursor-pointer ${
+              className={`px-[1rem] py-[0.625rem] inline-flex justify-center items-start cursor-pointer transition-all duration-300 ${
                 activeTab === "experiences" ? "bg-teal-500 rounded-full shadow-lg" : ""
               }`}
             >
@@ -65,7 +65,7 @@ const Discover = () => {
                     className={`text-center justify-center text-[1rem] leading-normal font-['Roboto'] ${
                       activeTab === "experiences"
                         ? "text-stone-50 font-medium"
-                        : "text-color-grey-42 font-normal"
+                        : "text-color-grey-42 dark:text-gray-300 font-normal"
                     }`}
                   >
                     Experiences
@@ -78,7 +78,7 @@ const Discover = () => {
         </div>
 
         {/* Aquí insertamos tu buscador AntologaSearch y le pasamos el activeTab */}
-        <div className="max-w-[72rem] mx-auto mb-[2.5rem]">
+        <div className="max-w-[72rem] mx-auto mb-[-4 rem]">
           <AntologaSearch discoverActiveTab={activeTab} />
         </div>
 

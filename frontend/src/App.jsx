@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { FiFacebook, FiTwitter, FiInstagram, FiLinkedin } from "react-icons/fi";
+
+
+// Importar el ThemeProvider
+import { ThemeProvider } from "./hooks/useTheme.jsx";
 
 //Main Layout de la Plataforma (Grid 12 Columnas / Gutter 32px
 import MainLayout from "./layouts/MainLayout"
@@ -23,8 +27,12 @@ import Support from "./pages/Support";
 import MyAccount from "./pages/MyAccount";
 import LandingPage from "./pages/LandingPage";
 import FloatingSupportButton from "./layouts/FloatingSupport";
+//import MessageCenter from './components/MessageCenter';
+//import { ErrorBoundary } from './components/ui/ErrorBoundary';
+
 import './App.css';
 import './output.css';
+
 
 // Función para manejar cookies
 const cookieManager = {
@@ -62,8 +70,10 @@ function App() {
   const [isCheckingFirstVisit, setIsCheckingFirstVisit] = useState(true);
 
   useEffect(() => {
-    document.documentElement.classList.add('light');
-    document.documentElement.classList.remove('dark');
+    // Eliminar estas líneas que forzaban el light mode
+    // document.documentElement.classList.add('light');
+    // document.documentElement.classList.remove('dark');
+    
     checkFirstVisit();
   }, []);
 
@@ -132,149 +142,152 @@ function App() {
   }
 
   return (
-    <div className="app-container min-h-screen flex flex-col overflow-hidden bg-transparent">
-      {!["/register","/onboarding"].includes(location.pathname) && (
-        <NavIcons currentUser={currentUser} onLogout={handleLogout} />
-      )}
+    <ThemeProvider>
+      <div className="app-container min-h-screen flex flex-col overflow-hidden bg-transparent">
+        {!["/register","/onboarding","/dashboard"].includes(location.pathname) && (
+          <NavIcons currentUser={currentUser} onLogout={handleLogout} />
+        )}
 
-      <main className={["/register","/onboarding"].includes(location.pathname)}>
-        <Routes>
-          <Route path="/Users" element={<Users />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
-          <Route path="/Experiences" element={<Experiences />} />
-          <Route path="/Destinations" element={<Destinations />} />
-          <Route path="/discover" element={<Discover />}>
-            <Route index element={<Destinations />} />
-            <Route path="destinations" element={<Destinations />} />
-            <Route path="experiences" element={<Experiences />} />
-          </Route>
-          <Route path="/Blog" element={<Blog />} />
-          <Route path="/trips" element={<Trips />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/partners" element={<Partners />} />
-          <Route path="/support" element={<Support />} />
-          <Route path="/my-account" element={<MyAccount />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/landing" element={
-            <LandingPage 
-              onSkip={skipLandingPage} 
-              onComplete={handleLandingPageComplete}
-            />
-          } />
-          <Route path="/home" element={<Home />}/>
-          <Route path="/Login-afiliados" element={<div className="flex items-center justify-center min-h-screen">Página de Login para Afiliados - En desarrollo</div>} />
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </main>
-      <FloatingSupportButton />
+        <main className={["/register","/onboarding/", "/dashboard"].includes(location.pathname)}>
+          <Routes>
+            <Route path="/Users" element={<Users />} />
+            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
+            <Route path="/Experiences" element={<Experiences />} />
+            <Route path="/Destinations" element={<Destinations />} />
+            <Route path="/discover" element={<Discover />}>
+              <Route index element={<Destinations />} />
+              <Route path="destinations" element={<Destinations />} />
+              <Route path="experiences" element={<Experiences />} />
+            </Route>
+            <Route path="/Blog" element={<Blog />} />
+            <Route path="/trips" element={<Trips />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/partners" element={<Partners />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/my-account" element={<MyAccount />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/landing" element={
+              <LandingPage 
+                onSkip={skipLandingPage} 
+                onComplete={handleLandingPageComplete}
+              />
+            } />
+            <Route path="/home" element={<Home />}/>
+            <Route path="/Login-afiliados" element={<div className="flex items-center justify-center min-h-screen">Página de Login para Afiliados - En desarrollo</div>} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </main>
+        <FloatingSupportButton />
 
-      {!["/register","/onboarding"].includes(location.pathname) && (
-        <div className="w-full px-6 py-16 bg-white inline-flex flex-col justify-center items-center overflow-hidden">
-          <div className="w-full max-w-[1200px] flex flex-col justify-center items-center gap-10">
+        {!["/register","/onboarding","/dashboard"].includes(location.pathname) && (
+          <div className="w-full px-6 py-16 bg-white dark:bg-dark-surface inline-flex flex-col justify-center items-center overflow-hidden transition-colors duration-300">
+            <div className="w-full max-w-[66.67vw] flex flex-col justify-center items-center gap-10">
 
-            <div className="w-full max-w-[1200px] inline-flex justify-start items-start gap-10 flex-wrap content-start">
-              <div className="flex-1 h-52 max-w-96 min-w-64 inline-flex flex-col justify-start items-start gap-6">
-                <img 
-                  className="w-52 h-24" 
-                  src="/icons/logo.svg" 
-                  alt="Company Logo" 
-                />
-                <div className="self-stretch text-gray-500 text-sm font-normal font-sans leading-tight">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.
+              <div className="w-full max-w-[66.67vw] inline-flex justify-start items-start gap-10 flex-wrap content-start">
+                <div className="flex-1 h-52 max-w-96 min-w-64 inline-flex flex-col justify-start items-start gap-6">
+                  <img 
+                    className="w-52 h-24" 
+                    src="/icons/logo.svg" 
+                    alt="Company Logo" 
+                  />
+                  <div className="self-stretch text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.
+                  </div>
+
+                  {/* Redes sociales reales */}
+                  <div className="inline-flex justify-center items-center gap-10 mt-4">
+                    <a
+                      href="https://facebook.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-blue-600 transition-all duration-200 hover:scale-110"
+                    >
+                      <FiFacebook className="w-6 h-6" />
+                    </a>
+                    <a
+                      href="https://twitter.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-sky-500 transition-all duration-200 hover:scale-110"
+                    >
+                      <FiTwitter className="w-6 h-6" />
+                    </a>
+                    <a
+                      href="https://instagram.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-pink-500 transition-all duration-200 hover:scale-110"
+                    >
+                      <FiInstagram className="w-6 h-6" />
+                    </a>
+                    <a
+                      href="https://linkedin.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-blue-700 transition-all duration-200 hover:scale-110"
+                    >
+                      <FiLinkedin className="w-6 h-6" />
+                    </a>
+                  </div>
                 </div>
 
-                {/* Redes sociales reales */}
-                <div className="inline-flex justify-center items-center gap-10 mt-4">
-                  <a
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-blue-600 transition-all duration-200 hover:scale-110"
-                  >
-                    <FiFacebook className="w-6 h-6" />
-                  </a>
-                  <a
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-sky-500 transition-all duration-200 hover:scale-110"
-                  >
-                    <FiTwitter className="w-6 h-6" />
-                  </a>
-                  <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-pink-500 transition-all duration-200 hover:scale-110"
-                  >
-                    <FiInstagram className="w-6 h-6" />
-                  </a>
-                  <a
-                    href="https://linkedin.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-blue-700 transition-all duration-200 hover:scale-110"
-                  >
-                    <FiLinkedin className="w-6 h-6" />
-                  </a>
+                {/* Columnas de enlaces */}
+                <div className="flex-1 min-w-64 py-2 flex justify-between items-start flex-wrap content-start">
+                  <div className="max-w-96 min-w-36 inline-flex flex-col justify-start items-start gap-4">
+                    <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Column 1</div>
+                    <div className="flex flex-col justify-start items-start gap-2">
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Blog</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Jobs</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Press</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Accessibility</div>
+                    </div>
+                  </div>
+
+                  <div className="max-w-96 min-w-36 inline-flex flex-col justify-start items-start gap-4">
+                    <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Column 2</div>
+                    <div className="flex flex-col justify-start items-start gap-2">
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Blog</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Jobs</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Press</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Accessibility</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Partners</div>
+                    </div>
+                  </div>
+
+                  <div className="max-w-96 min-w-36 inline-flex flex-col justify-start items-start gap-4">
+                    <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Column 3</div>
+                    <div className="flex flex-col justify-start items-start gap-2">
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Blog</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Jobs</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Press</div>
+                    </div>
+                  </div>
+
+                  <div className="max-w-96 min-w-36 inline-flex flex-col justify-start items-start gap-4">
+                    <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Column 4</div>
+                    <div className="flex flex-col justify-start items-start gap-2">
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Blog</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Jobs</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Press</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Accessibility</div>
+                      <div className="text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">Partners</div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Columnas de enlaces */}
-              <div className="flex-1 min-w-64 py-2 flex justify-between items-start flex-wrap content-start">
-                <div className="max-w-96 min-w-36 inline-flex flex-col justify-start items-start gap-4">
-                  <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Column 1</div>
-                  <div className="flex flex-col justify-start items-start gap-2">
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Blog</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Jobs</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Press</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Accessibility</div>
-                  </div>
-                </div>
-
-                <div className="max-w-96 min-w-36 inline-flex flex-col justify-start items-start gap-4">
-                  <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Column 2</div>
-                  <div className="flex flex-col justify-start items-start gap-2">
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Blog</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Jobs</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Press</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Accessibility</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Partners</div>
-                  </div>
-                </div>
-
-                <div className="max-w-96 min-w-36 inline-flex flex-col justify-start items-start gap-4">
-                  <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Column 3</div>
-                  <div className="flex flex-col justify-start items-start gap-2">
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Blog</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Jobs</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Press</div>
-                  </div>
-                </div>
-
-                <div className="max-w-96 min-w-36 inline-flex flex-col justify-start items-start gap-4">
-                  <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Column 4</div>
-                  <div className="flex flex-col justify-start items-start gap-2">
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Blog</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Jobs</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Press</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Accessibility</div>
-                    <div className="text-gray-500 text-sm font-normal font-sans leading-tight">Partners</div>
-                  </div>
-                </div>
+              <div className="self-stretch text-center text-gray-500 dark:text-gray-300 text-sm font-normal font-sans leading-tight">
+                © 2025 Antologa, Inc. All rights reserved.
               </div>
-            </div>
-
-            <div className="self-stretch text-center text-gray-500 text-sm font-normal font-sans leading-tight">
-              © 2025 Antologa, Inc. All rights reserved.
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </ThemeProvider>
   );
+
 }
 
 export default App;

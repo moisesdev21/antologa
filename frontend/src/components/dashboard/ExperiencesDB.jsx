@@ -239,16 +239,16 @@ const ExperiencesDB = ({
   // ========== RENDERIZADO ==========
 
   return (
-    <div className="space-y-6 w-full">
+    <div className="space-y-6 w-full  ">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center ">
         <div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">EXPERIENCES DB</h2>
-          <p className="text-gray-600">Gestión completa del catálogo de tours, actividades, contenido y moderación</p>
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">EXPERIENCES DB</h2>
+          <p className="text-gray-600 dark:text-gray-400">Gestión completa del catálogo de tours, actividades, contenido y moderación</p>
         </div>
         <button 
           onClick={onRefresh} 
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors"
+          className="bg-blue-500 dark:bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors duration-200"
           disabled={loading}
         >
           {loading ? 'Cargando...' : 'Actualizar'}
@@ -256,9 +256,9 @@ const ExperiencesDB = ({
       </div>
 
       {/* Pestañas */}
-      <div className="bg-white rounded-lg shadow border border-gray-200">
-        <div className="border-b border-gray-200">
-          <nav className="flex overflow-x-auto -mb-px">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 transition-colors duration-300 ">
+        <div className="border-b border-gray-200 dark:border-gray-700  ">
+          <nav className="flex overflow-x-auto -mb-px  ">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
@@ -266,20 +266,20 @@ const ExperiencesDB = ({
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`
-                    flex items-center px-6 py-4 border-b-2 font-medium text-sm whitespace-nowrap
+                    flex items-center px-6 py-4 border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200
                     ${activeTab === tab.id
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                      : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
                     }
                   `}
                 >
                   <Icon className="h-4 w-4 mr-2" />
                   {tab.label}
                   <span className={`
-                    ml-2 py-0.5 px-2 rounded-full text-xs
+                    ml-2 py-0.5 px-2 rounded-full text-xs transition-colors duration-200 
                     ${activeTab === tab.id
-                      ? 'bg-blue-100 text-blue-600'
-                      : 'bg-gray-100 text-gray-600'
+                      ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
                     }
                   `}>
                     {tab.count}
@@ -291,12 +291,12 @@ const ExperiencesDB = ({
         </div>
 
         {/* Contenido de las pestañas */}
-        <div className="p-6">
+        <div className="p-6  ">
           {/* === PESTAÑA: EXPERIENCIAS === */}
           {activeTab === 'experiences' && (
-            <div className="space-y-6">
+            <div className="space-y-6 ">
               {/* Filtros */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 ">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <input
@@ -304,14 +304,14 @@ const ExperiencesDB = ({
                     placeholder="Buscar experiencias..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                   />
                 </div>
 
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                 >
                   <option value="">Todos los tipos</option>
                   {[...new Set(experiences.map(exp => exp.category?.name).filter(Boolean))].map(type => (
@@ -322,7 +322,7 @@ const ExperiencesDB = ({
                 <select
                   value={selectedCity}
                   onChange={(e) => setSelectedCity(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                 >
                   <option value="">Todas las ciudades</option>
                   {[...new Set(experiences.map(exp => exp.location).filter(Boolean))].map(city => (
@@ -333,7 +333,7 @@ const ExperiencesDB = ({
                 <select
                   value={moderationFilter}
                   onChange={(e) => setModerationFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                 >
                   <option value="">Todos los estados</option>
                   <option value="Pendiente">En revisión</option>
@@ -345,29 +345,29 @@ const ExperiencesDB = ({
               {/* Lista de Experiences */}
               <div className="space-y-4">
                 {filteredExperiences.map(experience => (
-                  <div key={experience.id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                  <div key={experience.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600 transition-colors duration-300">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-lg">{experience.name}</h3>
-                        <p className="text-gray-600 text-sm mt-1">{experience.description}</p>
-                        <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                        <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{experience.name}</h3>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{experience.description}</p>
+                        <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
                           <span>{experience.category?.name}</span>
                           <span>{experience.location}</span>
                           <span>${experience.price}</span>
                           <span className={`px-2 py-1 rounded-full text-xs ${
-                            experience.moderationStatus === 'Aprobado' ? 'bg-green-100 text-green-800' :
-                            experience.moderationStatus === 'Pendiente' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
+                            experience.moderationStatus === 'Aprobado' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' :
+                            experience.moderationStatus === 'Pendiente' ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200' :
+                            'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200'
                           }`}>
                             {experience.moderationStatus}
                           </span>
                         </div>
                       </div>
                       <div className="flex gap-2 ml-4">
-                        <button onClick={() => handlePromoteExperience(experience.id)} className="p-2 text-yellow-600 hover:bg-yellow-50 rounded">
+                        <button onClick={() => handlePromoteExperience(experience.id)} className="p-2 text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-900 rounded transition-colors duration-200">
                           <Star className="h-4 w-4" />
                         </button>
-                        <button onClick={() => handleApproveExperience(experience.id)} className="p-2 text-green-600 hover:bg-green-50 rounded">
+                        <button onClick={() => handleApproveExperience(experience.id)} className="p-2 text-green-600 hover:bg-green-50 dark:hover:bg-green-900 rounded transition-colors duration-200">
                           <CheckCircle className="h-4 w-4" />
                         </button>
                       </div>
@@ -380,54 +380,54 @@ const ExperiencesDB = ({
 
           {/* === PESTAÑA: BLOG Y EVENTOS === */}
           {activeTab === 'blog' && (
-            <div className="space-y-6">
-              <div className="flex justify-between items-center">
-                <div className="relative flex-1 max-w-md">
+            <div className="space-y-6 ">
+              <div className="flex justify-between items-center ">
+                <div className="relative flex-1 max-w-md ">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <input
                     type="text"
                     placeholder="Buscar en artículos..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg  focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                   />
                 </div>
                 <button 
                   onClick={handleCreateArticle}
-                  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center gap-2"
+                  className="bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-600 dark:hover:bg-green-700 transition-colors duration-200 flex items-center gap-2"
                 >
-                  <Plus className="h-4 w-4" />
+                  <Plus className="h-4 w-4 " />
                   Nuevo Artículo
                 </button>
               </div>
 
               {/* Lista de Artículos */}
-              <div className="space-y-4">
+              <div className="space-y-4 ">
                 {filteredArticles.map(article => (
-                  <div key={article.id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                  <div key={article.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600 transition-colors duration-300">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-lg">{article.title}</h3>
-                        <p className="text-gray-600 text-sm mt-1 line-clamp-2">{article.content}</p>
-                        <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                        <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{article.title}</h3>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-2">{article.content}</p>
+                        <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
                           <span>{article.category}</span>
                           <span className={`px-2 py-1 rounded-full text-xs ${
-                            article.status === 'published' ? 'bg-green-100 text-green-800' :
-                            article.status === 'scheduled' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-gray-100 text-gray-800'
+                            article.status === 'published' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' :
+                            article.status === 'scheduled' ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200' :
+                            'bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200'
                           }`}>
                             {article.status === 'published' ? 'Publicado' : 
                              article.status === 'scheduled' ? 'Programado' : 'Borrador'}
                           </span>
                           {article.tags && (
-                            <span className="text-blue-600">{article.tags.split(',').slice(0, 2).join(', ')}</span>
+                            <span className="text-blue-600 dark:text-blue-400">{article.tags.split(',').slice(0, 2).join(', ')}</span>
                           )}
                         </div>
                       </div>
                       <div className="flex gap-2 ml-4">
                         <button 
                           onClick={() => handleEditArticle(article)}
-                          className="p-2 text-blue-600 hover:bg-blue-50 rounded"
+                          className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900 rounded transition-colors duration-200"
                         >
                           <Edit className="h-4 w-4" />
                         </button>
@@ -450,12 +450,12 @@ const ExperiencesDB = ({
                     placeholder="Buscar categorías..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                   />
                 </div>
                 <button 
                   onClick={handleCreateCategory}
-                  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center gap-2"
+                  className="bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-600 dark:hover:bg-green-700 transition-colors duration-200 flex items-center gap-2"
                 >
                   <Plus className="h-4 w-4" />
                   Nueva Categoría
@@ -467,19 +467,19 @@ const ExperiencesDB = ({
                 {filteredCategories.map(category => {
                   const expCount = experiences.filter(exp => exp.categoryId === category.id).length;
                   return (
-                    <div key={category.id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                    <div key={category.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600 transition-colors duration-300">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-lg">{category.name}</h3>
-                          <p className="text-gray-600 text-sm mt-1">{category.description}</p>
-                          <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{category.name}</h3>
+                          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{category.description}</p>
+                          <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
                             <span>{expCount} experiencias</span>
                           </div>
                         </div>
                         <div className="flex gap-2 ml-4">
                           <button 
                             onClick={() => handleEditCategory(category)}
-                            className="p-2 text-blue-600 hover:bg-blue-50 rounded"
+                            className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900 rounded transition-colors duration-200"
                           >
                             <Edit className="h-4 w-4" />
                           </button>
@@ -494,22 +494,22 @@ const ExperiencesDB = ({
 
           {/* === PESTAÑA: MODERACIÓN DE RESEÑAS === */}
           {activeTab === 'reviews' && (
-            <div className="space-y-6">
-              <div className="flex justify-between items-center">
-                <div className="relative flex-1 max-w-md">
+            <div className="space-y-6 ">
+              <div className="flex justify-between items-center ">
+                <div className="relative flex-1 max-w-md ">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <input
                     type="text"
                     placeholder="Buscar en reseñas..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                   />
                 </div>
                 <select
                   value={reviewsFilter}
                   onChange={(e) => setReviewsFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                 >
                   <option value="reported">Reportadas</option>
                   <option value="pending">Pendientes</option>
@@ -520,22 +520,22 @@ const ExperiencesDB = ({
               {/* Lista de Reseñas */}
               <div className="space-y-4">
                 {filteredReviews.map(review => (
-                  <div key={review.id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                  <div key={review.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600 transition-colors duration-300">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <div className="flex text-yellow-400">
                             {[...Array(5)].map((_, i) => (
-                              <span key={i} className={i < review.rating ? 'text-yellow-400' : 'text-gray-300'}>
+                              <span key={i} className={i < review.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}>
                                 ★
                               </span>
                             ))}
                           </div>
-                          <span className="text-sm text-gray-500">por {review.user?.name}</span>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">por {review.user?.name}</span>
                         </div>
-                        <p className="text-gray-800">{review.comment}</p>
+                        <p className="text-gray-800 dark:text-gray-200">{review.comment}</p>
                         {review.reported && (
-                          <div className="mt-2 px-3 py-1 bg-red-100 text-red-800 rounded text-sm inline-flex items-center gap-1">
+                          <div className="mt-2 px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded text-sm inline-flex items-center gap-1">
                             <Flag className="h-3 w-3" />
                             Reportada
                           </div>
@@ -544,13 +544,13 @@ const ExperiencesDB = ({
                       <div className="flex gap-2 ml-4">
                         <button 
                           onClick={() => onApproveReview(review.id)}
-                          className="p-2 text-green-600 hover:bg-green-50 rounded"
+                          className="p-2 text-green-600 hover:bg-green-50 dark:hover:bg-green-900 rounded transition-colors duration-200"
                         >
                           <CheckCircle className="h-4 w-4" />
                         </button>
                         <button 
                           onClick={() => onRejectReview(review.id)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded"
+                          className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900 rounded transition-colors duration-200"
                         >
                           <XCircle className="h-4 w-4" />
                         </button>
@@ -566,13 +566,13 @@ const ExperiencesDB = ({
 
       {/* Modales para Blog y Categorías */}
       {showArticleEditor && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
-            <div className="flex justify-between items-center p-6 border-b border-gray-200">
-              <h3 className="text-xl font-semibold">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 ">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden transition-colors duration-300">
+            <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {editingArticle ? 'Editar Artículo' : 'Crear Nuevo Artículo'}
               </h3>
-              <button onClick={() => setShowArticleEditor(false)} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => setShowArticleEditor(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                 <X className="h-6 w-6" />
               </button>
             </div>
@@ -583,20 +583,20 @@ const ExperiencesDB = ({
                   placeholder="Título del artículo"
                   value={articleForm.title}
                   onChange={(e) => setArticleForm(prev => ({ ...prev, title: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                 />
                 <textarea
                   placeholder="Contenido del artículo"
                   value={articleForm.content}
                   onChange={(e) => setArticleForm(prev => ({ ...prev, content: e.target.value }))}
                   rows={6}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                 />
                 <div className="flex gap-4">
                   <select
                     value={articleForm.category}
                     onChange={(e) => setArticleForm(prev => ({ ...prev, category: e.target.value }))}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
+                    className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                   >
                     <option value="Noticias de Panamá">Noticias de Panamá</option>
                     <option value="Eventos del Día">Eventos del Día</option>
@@ -604,17 +604,17 @@ const ExperiencesDB = ({
                   <select
                     value={articleForm.status}
                     onChange={(e) => setArticleForm(prev => ({ ...prev, status: e.target.value }))}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
+                    className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                   >
                     <option value="draft">Borrador</option>
                     <option value="published">Publicado</option>
                   </select>
                 </div>
                 <div className="flex justify-end gap-3">
-                  <button onClick={() => setShowArticleEditor(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                  <button onClick={() => setShowArticleEditor(false)} className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200">
                     Cancelar
                   </button>
-                  <button onClick={handleSaveArticle} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                  <button onClick={handleSaveArticle} className="px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors duration-200">
                     Guardar
                   </button>
                 </div>
@@ -626,12 +626,12 @@ const ExperiencesDB = ({
 
       {showCategoryForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-md">
-            <div className="flex justify-between items-center p-6 border-b border-gray-200">
-              <h3 className="text-xl font-semibold">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md transition-colors duration-300">
+            <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {editingCategory ? 'Editar Categoría' : 'Nueva Categoría'}
               </h3>
-              <button onClick={() => setShowCategoryForm(false)} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => setShowCategoryForm(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                 <X className="h-6 w-6" />
               </button>
             </div>
@@ -642,20 +642,20 @@ const ExperiencesDB = ({
                   placeholder="Nombre de la categoría"
                   value={categoryForm.name}
                   onChange={(e) => setCategoryForm(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                 />
                 <textarea
                   placeholder="Descripción"
                   value={categoryForm.description}
                   onChange={(e) => setCategoryForm(prev => ({ ...prev, description: e.target.value }))}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
                 />
                 <div className="flex justify-end gap-3">
-                  <button onClick={() => setShowCategoryForm(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                  <button onClick={() => setShowCategoryForm(false)} className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200">
                     Cancelar
                   </button>
-                  <button onClick={handleSaveCategory} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                  <button onClick={handleSaveCategory} className="px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors duration-200">
                     Guardar
                   </button>
                 </div>

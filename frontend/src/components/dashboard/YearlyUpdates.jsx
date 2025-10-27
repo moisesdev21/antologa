@@ -28,12 +28,16 @@ const YearlyProfitRing = () => {
   const total = data.reduce((sum, item) => sum + item.value, 0);
 
   return (
-    <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md text-center">
-      <h2 className="text-lg font-semibold mb-1">Yearly updates</h2>
-      <p className="text-sm text-gray-500 mb-3">Overview of Profit</p>
+    <div className="bg-white dark:bg-dark-surface h-[375px] p-6 rounded-2xl text-center transition-colors duration-300">
+      <h2 className="text-lg font-semibold mb-1 text-[#282828] dark:text-white transition-colors duration-300">
+        Yearly updates
+      </h2>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 transition-colors duration-300">
+        Overview of Profit
+      </p>
 
-      <div className="relative flex justify-center items-center">
-        <ResponsiveContainer width="100%" height={180}>
+      <div className="relative flex justify-center h-[250px] items-center text-[#282828] dark:text-white transition-colors duration-300">
+        <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
               data={data}
@@ -58,7 +62,7 @@ const YearlyProfitRing = () => {
       </div>
 
       {/* Leyenda */}
-      <div className="flex justify-center gap-4 mt-4 text-sm">
+      <div className="flex justify-center gap-4 mt-4 text-sm text-[#282828] dark:text-white transition-colors duration-300">
         {data.map((entry, index) => (
           <div key={entry.name} className="flex items-center gap-2">
             <span

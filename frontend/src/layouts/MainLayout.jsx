@@ -16,19 +16,19 @@ import React from 'react';
 const MainLayout = ({ children }) => {
   return (
     // Usa la fuente 'body' (Nunito) como fuente base para todo el layout
-    <div className="min-h-screen bg-gray-50 font-body"> 
+    <div className="min-h-screen bg-gray-50 font-body dark:bg-gray-900"> 
       
       {/* HEADER: Elemento de ancho completo */}
       
       
       {/* CUERPO PRINCIPAL DEL CONTENIDO */}
-      <main className="flex-1 w-full">
+      <main className="flex-1 w-full ">
         
         {/* Contenedor Centrado - ELIMINADO para permitir secciones de ancho completo */}
         {/* Las secciones ahora controlan su propio ancho y padding */}
           
         {/* DEFINICIÓN DE LA CUADRÍCULA DE 12 COLUMNAS Y EL GUTTER DE 32px */}
-        <div className="grid grid-cols-12 gap-8 w-full">
+        <div className="grid grid-cols-12 gap-8 w-full ">
           
           {/* Aquí se renderizan los componentes de página. 
             Cada componente debe usar col-span-X (por ejemplo: col-span-12)
